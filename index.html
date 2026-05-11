@@ -1,0 +1,1957 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connect Matrix Brand Identity System Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Onest:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --bg-grid: rgba(17, 24, 39, 0.06);
+      --surface: #ffffff;
+      --surface-soft: #f2f4f7;
+      --surface-raised: #ffffff;
+      --text: #171a1f;
+      --text-soft: #5e6673;
+      --text-faint: #8a93a3;
+      --border: rgba(23, 26, 31, 0.1);
+      --shadow: 0 18px 44px rgba(17, 24, 39, 0.08);
+      --shadow-soft: 0 10px 26px rgba(17, 24, 39, 0.06);
+      --accent: #2e6eea;
+      --accent-soft: #e8efff;
+      --success: #18a673;
+      --warning: #d79b18;
+      --danger: #d94b4b;
+      --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "Onest", ui-sans-serif, system-ui, sans-serif;
+      --font-accent: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      --radius-sm: 10px;
+      --radius-md: 12px;
+      --radius-lg: 30px;
+      --space-xs: 6px;
+      --space-sm: 10px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 34px;
+      --space-2xl: 48px;
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --bg-grid: rgba(255, 255, 255, 0.06);
+      --surface: #171a20;
+      --surface-soft: #20242d;
+      --surface-raised: #1c2028;
+      --text: #f2f4f8;
+      --text-soft: #b8bfca;
+      --text-faint: #7f8897;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.34);
+      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.24);
+      --accent: #8eb2ff;
+      --accent-soft: rgba(142, 178, 255, 0.14);
+      --success: #61d5ad;
+      --warning: #edc967;
+      --danger: #ff8a8a;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      color: var(--text);
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        radial-gradient(circle at 18% 0%, color-mix(in oklch, var(--accent) 12%, transparent), transparent 28%),
+        var(--bg);
+      background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
+      font-family: var(--font-body);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: color-mix(in oklch, var(--surface) 86%, transparent);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    .template-id {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-width: 0;
+      padding-left: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+
+    .template-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-soft);
+      flex: 0 0 auto;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      background: var(--surface-raised);
+      cursor: pointer;
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    [data-lucide] {
+      width: 1em;
+      height: 1em;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .poster {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      align-content: start;
+      gap: var(--space-xl);
+      min-width: 0;
+      min-height: 220px;
+      padding: clamp(22px, 2vw, 32px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card.compact {
+      min-height: 180px;
+    }
+
+    .card.hero {
+      min-height: 430px;
+      align-content: space-between;
+      background:
+        radial-gradient(circle at 86% 16%, var(--accent-soft), transparent 34%),
+        var(--surface);
+    }
+
+    .design-system-card {
+      grid-row: span 2;
+      min-height: 420px;
+    }
+
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      color: var(--text-faint);
+      font-size: 12px;
+      font-weight: 750;
+      font-family: var(--font-accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-label span:last-child {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-soft);
+      background: var(--surface-raised);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      font-size: clamp(56px, 8vw, 116px);
+      line-height: 0.92;
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+    }
+
+    h2 {
+      max-width: 620px;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+    }
+
+    h3 {
+      font-size: 15px;
+      line-height: 1.2;
+      font-family: var(--font-display);
+      font-weight: 740;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      max-width: 68ch;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .hero-statement {
+      font-size: clamp(18px, 1.5vw, 24px);
+      line-height: 1.35;
+      color: var(--text-soft);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .logo-suggestions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+      width: 100%;
+      margin-top: var(--space-lg);
+      align-items: stretch;
+    }
+
+    .logo-suggestion {
+      display: grid;
+      grid-template-rows: minmax(165px, 1fr) auto;
+      gap: 0;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+      min-height: 286px;
+      overflow: hidden;
+    }
+
+    .logo-preview {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 150px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 14px 14px;
+    }
+
+    .logo-preview svg {
+      width: 46%;
+      height: 46%;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .logo-preview [data-lucide] {
+      width: 54%;
+      height: 54%;
+      color: var(--accent);
+      stroke-width: 1.8;
+    }
+
+    .logo-copy {
+      display: grid;
+      gap: var(--space-xs);
+      padding: var(--space-md);
+    }
+
+    .logo-suggestion h3 {
+      font-size: 14px;
+    }
+
+    .logo-suggestion p {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-soft);
+      background: var(--surface-raised);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .brand-mark-slot {
+      display: grid;
+      place-items: center;
+      width: clamp(96px, 12vw, 164px);
+      aspect-ratio: 1;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, var(--surface-raised), var(--surface-soft));
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand-mark-slot svg {
+      width: 54%;
+      height: 54%;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .brand-mark-slot [data-lucide] {
+      width: 54%;
+      height: 54%;
+      color: var(--accent);
+      stroke-width: 1.8;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 0;
+      min-height: 162px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      overflow: hidden;
+    }
+
+    .swatch-fill {
+      width: 100%;
+      height: 100%;
+      min-height: 92px;
+      border-radius: 0;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .swatch-meta {
+      display: grid;
+      gap: 4px;
+      font-size: 13px;
+      padding: var(--space-sm) var(--space-md) var(--space-md);
+    }
+
+    .study-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .study-card {
+      display: grid;
+      gap: var(--space-sm);
+      min-height: 158px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .study-visual {
+      min-height: 96px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 14px 14px;
+    }
+
+    .study-card h3 {
+      font-size: 14px;
+      padding: 0 var(--space-md);
+    }
+
+    .study-card p {
+      font-size: 12px;
+      line-height: 1.45;
+      padding: 0 var(--space-md) var(--space-md);
+    }
+
+    .state-strip,
+    .mode-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      min-height: 96px;
+    }
+
+    .mode-strip {
+      grid-template-columns: 1.1fr 1fr 1fr;
+    }
+
+    .state-swatch,
+    .mode-swatch {
+      display: grid;
+      align-content: end;
+      min-height: 96px;
+      padding: 8px;
+      border: 0;
+      border-right: 1px solid color-mix(in oklch, #ffffff 25%, transparent);
+      border-radius: 0;
+      color: #ffffff;
+      font-family: var(--font-accent);
+      font-size: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .state-swatch:last-child,
+    .mode-swatch:last-child {
+      border-right: 0;
+    }
+
+    .mode-swatch {
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+
+    .swatch-meta code {
+      color: var(--text-faint);
+      font-family: var(--font-accent);
+      font-size: 12px;
+    }
+
+    .type-stack,
+    .component-stack,
+    .note-stack {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .type-stack {
+      --type-preview-height: clamp(220px, 22vw, 300px);
+    }
+
+    .ui-showcase {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .ui-sample {
+      display: grid;
+      gap: var(--space-sm);
+      min-height: 118px;
+      padding: var(--space-md);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .ui-sample.wide {
+      grid-column: 1 / -1;
+    }
+
+    .ui-showcase .ui-sample:nth-child(4),
+    .ui-showcase .ui-sample:nth-child(5) {
+      min-height: 282px;
+      align-content: center;
+    }
+
+    .ui-showcase .ui-sample:nth-child(4) {
+      align-content: center;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .mini-hero {
+      align-content: space-between;
+      min-height: 154px;
+      background:
+        radial-gradient(circle at 88% 18%, var(--accent-soft), transparent 34%),
+        var(--surface-raised);
+    }
+
+    .mini-hero-top,
+    .workflow-row,
+    .status-row,
+    .toast-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .mini-hero-icon,
+    .feature-icon,
+    .workflow-node,
+    .toast-icon,
+    .empty-icon {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      flex: 0 0 auto;
+    }
+
+    .mini-preview {
+      display: grid;
+      gap: 5px;
+      min-height: 52px;
+      padding: 7px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 14px 14px;
+    }
+
+    .preview-bar,
+    .preview-line {
+      border-radius: 999px;
+      background: color-mix(in oklch, var(--text) 12%, transparent);
+    }
+
+    .preview-bar {
+      width: 44%;
+      height: 6px;
+    }
+
+    .preview-line {
+      height: 5px;
+    }
+
+    .preview-line:nth-child(2) { width: 82%; }
+    .preview-line:nth-child(3) { width: 64%; }
+    .preview-line:nth-child(4) { width: 48%; }
+
+    .phone-shell {
+      width: min(100%, 168px);
+      justify-self: center;
+      padding: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, #2a2d35, #050608 64%);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 14px 34px rgba(0, 0, 0, 0.28);
+    }
+
+    .phone-screen {
+      display: grid;
+      gap: 6px;
+      min-height: 230px;
+      padding: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 80% 12%, rgba(142, 178, 255, 0.18), transparent 28%),
+        #10131a;
+    }
+
+    .phone-pill {
+      justify-self: center;
+      width: 28px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .status-row {
+      justify-content: space-between;
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.07);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .status-row strong {
+      color: #ffffff;
+    }
+
+    .workflow-card {
+      align-content: space-between;
+    }
+
+    .workflow-row {
+      justify-content: space-between;
+      padding: 7px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-soft);
+    }
+
+    .workflow-arrow {
+      color: var(--text-faint);
+      font-family: var(--font-accent);
+      font-size: 10px;
+    }
+
+    .toast-sample {
+      align-content: center;
+      min-height: 74px;
+      border-color: color-mix(in oklch, var(--success) 38%, var(--border));
+      background: color-mix(in oklch, var(--success) 8%, var(--surface-raised));
+      padding: var(--space-sm);
+      border-radius: var(--radius-md);
+    }
+
+    .toast-icon {
+      color: var(--success);
+      background: color-mix(in oklch, var(--success) 14%, transparent);
+    }
+
+    .empty-state {
+      place-items: center;
+      text-align: center;
+      min-height: 118px;
+    }
+
+    .empty-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--text-soft);
+      background: var(--surface-soft);
+    }
+
+    .ui-sample h3 {
+      font-size: 12px;
+    }
+
+    .ui-sample p {
+      font-size: 10.5px;
+      line-height: 1.35;
+    }
+
+    .type-sample {
+      display: grid;
+      grid-template-rows: minmax(var(--type-preview-height), 1fr) auto;
+      gap: 0;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .type-preview {
+      display: grid;
+      gap: var(--space-md);
+      align-content: center;
+      min-height: var(--type-preview-height);
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 18px 18px;
+    }
+
+    .type-copy {
+      display: grid;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+    }
+
+    .hierarchy-stack {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .type-h1,
+    .type-h2,
+    .type-h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+    }
+
+    .type-h1 {
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 800;
+    }
+
+    .type-h2 {
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 760;
+    }
+
+    .type-h3 {
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 700;
+    }
+
+    .body-specimen {
+      display: grid;
+      gap: var(--space-md);
+      max-width: 54ch;
+      font-family: var(--font-body);
+    }
+
+    .body-specimen .lede {
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .body-specimen .body-long {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .body-specimen .helper {
+      color: var(--text-faint);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .accent-specimen {
+      display: grid;
+      gap: var(--space-sm);
+      font-family: var(--font-accent);
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-raised);
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .char-box {
+      display: grid;
+      place-items: center;
+      min-height: 52px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 750;
+    }
+
+    .sample-headline {
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 0.95;
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .sample-subhead {
+      font-size: 23px;
+      line-height: 1.05;
+      font-family: var(--font-body);
+      font-weight: 690;
+      letter-spacing: -0.025em;
+    }
+
+    .visual-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-rows: repeat(5, minmax(0, 1fr));
+      gap: var(--space-md);
+      aspect-ratio: 3 / 5;
+      height: auto;
+      min-height: 0;
+    }
+
+    .image-slot {
+      position: relative;
+      display: grid;
+      align-content: end;
+      min-height: 0;
+      padding: var(--space-lg);
+      border: 1px dashed color-mix(in oklch, var(--text) 22%, transparent);
+      border-radius: var(--radius-md);
+      color: var(--text-soft);
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 18px 18px;
+      overflow: hidden;
+    }
+
+    #image-slot-hero {
+      grid-column: 1 / span 6;
+      grid-row: 1 / span 2;
+      min-height: 0;
+    }
+
+    #image-slot-mood {
+      grid-column: 1 / span 4;
+      grid-row: 3 / span 2;
+    }
+
+    #image-slot-detail {
+      grid-column: 5 / span 2;
+      grid-row: 3 / span 2;
+    }
+
+    #image-slot-lighting {
+      grid-column: 1 / span 3;
+      grid-row: 5;
+      min-height: 0;
+    }
+
+    #image-slot-pattern {
+      grid-column: 4 / span 3;
+      grid-row: 5;
+      min-height: 0;
+    }
+
+    .image-slot::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      pointer-events: none;
+    }
+
+    .image-slot strong,
+    .image-slot span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .image-slot strong {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 740;
+    }
+
+    .image-slot span {
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .mockup {
+      display: grid;
+      grid-template-rows: minmax(240px, 1fr) auto;
+      gap: 0;
+      min-height: 360px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .mock-visual {
+      display: grid;
+      place-items: center;
+      min-height: 240px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--text-faint);
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--surface-soft);
+      background-size: 16px 16px;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .mockup-copy {
+      display: grid;
+      gap: var(--space-xs);
+      padding: var(--space-md);
+    }
+
+    .nav-demo {
+      display: grid;
+      grid-template-columns: 1.45fr repeat(3, minmax(0, 0.9fr));
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 8px 10px 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-raised);
+    }
+
+    .nav-demo span {
+      padding: 8px 10px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 720;
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      padding-left: 14px;
+      padding-right: 18px;
+      border-right: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .nav-brand [data-lucide] {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .btn {
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      background: var(--surface-raised);
+      font-size: 10.5px;
+      font-weight: 740;
+    }
+
+    .btn.primary {
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .metric {
+      display: grid;
+      gap: 4px;
+      padding: var(--space-md);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .metric strong {
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .metric span {
+      color: var(--text-faint);
+      font-size: 12px;
+    }
+
+    .input-demo {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .input-demo label {
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .input-demo input,
+    .mini-input {
+      min-height: 32px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      background: var(--surface-raised);
+      font-size: 10.5px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+    }
+
+    .input-demo input:focus,
+    .mini-input:focus {
+      border-color: color-mix(in oklch, var(--accent) 70%, var(--border));
+      background: var(--surface);
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 16%, transparent);
+    }
+
+    .form-sample {
+      align-content: start;
+    }
+
+    .mini-form {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface-soft);
+    }
+
+    .mini-input {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .mini-submit,
+    .gradient-action {
+      border: 0;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 760;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+    }
+
+    .mini-submit {
+      min-height: 28px;
+      padding: 0 10px;
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    .mini-submit:hover,
+    .mini-submit:focus-visible {
+      filter: brightness(0.84);
+      box-shadow: 0 8px 18px color-mix(in oklch, var(--accent) 26%, transparent);
+    }
+
+    .gradient-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .gradient-action {
+      width: 100%;
+      min-height: 42px;
+      padding: 0 8px;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--text), var(--accent));
+    }
+
+    .gradient-action:hover,
+    .gradient-action:focus-visible {
+      filter: brightness(0.82) saturate(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px color-mix(in oklch, var(--text) 18%, transparent);
+    }
+
+    .gradient-action.alt {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--surface), var(--accent-soft));
+    }
+
+    .gradient-action.alt:hover,
+    .gradient-action.alt:focus-visible {
+      color: color-mix(in oklch, var(--text) 92%, black);
+      filter: brightness(0.88) saturate(1.04);
+    }
+
+    .token-grid,
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .token,
+    .icon {
+      display: grid;
+      place-items: center;
+      min-height: 74px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 740;
+    }
+
+    .icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon [data-lucide] {
+      width: 32px;
+      height: 32px;
+      color: var(--accent);
+      stroke-width: 1.9;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .note {
+      display: grid;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .note-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .note-title [data-lucide] {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .brand-footer {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr auto;
+      gap: var(--space-lg);
+      align-items: center;
+      color: #f8fbff;
+      background:
+        radial-gradient(circle at 12% 18%, color-mix(in oklch, var(--accent) 42%, transparent), transparent 32%),
+        linear-gradient(135deg, #171a1f, #2e6eea);
+      border-color: color-mix(in oklch, #ffffff 20%, transparent);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      min-width: 0;
+    }
+
+    .footer-logo {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      background: color-mix(in oklch, #ffffff 14%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .footer-logo [data-lucide] {
+      width: 26px;
+      height: 26px;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+      color: color-mix(in oklch, #ffffff 82%, transparent);
+      font-size: 13px;
+    }
+
+    .footer-contact span {
+      padding: 8px 10px;
+      border: 1px solid color-mix(in oklch, #ffffff 20%, transparent);
+      border-radius: 999px;
+      background: color-mix(in oklch, #ffffff 10%, transparent);
+    }
+
+    .copyright {
+      color: color-mix(in oklch, #ffffff 72%, transparent);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .brand-footer p,
+    .brand-footer h3 {
+      color: inherit;
+    }
+
+    @media (max-width: 1100px) {
+      .span-3,
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-7,
+      .span-8 {
+        grid-column: span 6;
+      }
+
+      .hero,
+      .brand-applications,
+      .system-notes,
+      .brand-footer {
+        grid-column: 1 / -1;
+      }
+
+      .mockup-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, 680px);
+        padding-top: 10px;
+      }
+
+      .topbar {
+        position: static;
+        border-radius: var(--radius-md);
+      }
+
+      .poster {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+
+      .span-3,
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-7,
+      .span-8,
+      .span-12 {
+        grid-column: 1 / -1;
+      }
+
+      .swatch-grid,
+      .mockup-grid,
+      .metric-row,
+      .token-grid,
+      .icon-grid,
+      .logo-suggestions,
+      .study-grid,
+      .ui-showcase,
+      .char-grid,
+      .brand-footer,
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        grid-auto-rows: minmax(150px, auto);
+        aspect-ratio: auto;
+      }
+
+      #image-slot-hero,
+      #image-slot-mood,
+      #image-slot-detail,
+      #image-slot-lighting,
+      #image-slot-pattern {
+        grid-column: 1 / -1;
+        grid-row: auto;
+      }
+
+      #image-slot-hero {
+        min-height: 210px;
+      }
+
+      #image-slot-mood,
+      #image-slot-detail,
+      #image-slot-lighting,
+      #image-slot-pattern {
+        min-height: 150px;
+      }
+
+      .type-preview {
+        min-height: 180px;
+      }
+
+      .footer-contact {
+        justify-content: flex-start;
+      }
+
+      .copyright {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .nav-demo {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        border-radius: var(--radius-md);
+      }
+
+      .nav-brand {
+        grid-column: 1 / -1;
+        padding: 8px 10px 10px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-demo span:not(.nav-brand) {
+        padding: 6px 4px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="page-shell">
+    <header class="topbar" id="topbar">
+      <div class="template-id" id="template-id">
+        <span class="template-dot" aria-hidden="true"></span>
+        <span>Connect Matrix Sample Template</span>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <circle cx="12" cy="12" r="4"/>
+        </svg>
+        <span data-theme-label>Dark mode</span>
+      </button>
+    </header>
+
+    <main class="poster" id="brand-system-poster" aria-label="Brand identity system poster template">
+      <section class="card hero span-8" id="brand-header" aria-labelledby="brand-header-title">
+        <div class="section-label" id="brand-header-label">
+          <span>01 Brand Header</span>
+          <span>01</span>
+        </div>
+        <div class="hero-copy" id="brand-header-copy">
+          <div class="brand-mark-slot" id="brand-mark-slot" aria-label="Logo placeholder">
+            <i data-lucide="network" aria-hidden="true"></i>
+          </div>
+          <h1 id="brand-header-title">Connect Matrix</h1>
+          <p class="hero-statement">Agentic SaaS infrastructure that connects business apps, coordinates AI assistance, and compresses operational work into faster automated flows.</p>
+        </div>
+        <div class="chips" id="brand-descriptor-chips">
+          <span class="chip">Agentic</span>
+          <span class="chip">Connected</span>
+          <span class="chip">Efficient</span>
+          <span class="chip">Leverage</span>
+        </div>
+        <div class="logo-suggestions" id="logo-suggestions" aria-label="Logo suggestion placeholders">
+          <article class="logo-suggestion" id="logo-suggestion-matrix-node">
+            <div class="logo-preview" id="logo-preview-matrix-node">
+              <i data-lucide="network" aria-hidden="true"></i>
+            </div>
+            <div class="logo-copy" id="logo-copy-matrix-node">
+              <h3>Matrix Node</h3>
+              <p>Centralized connector mark for app orchestration and AI routing.</p>
+            </div>
+          </article>
+          <article class="logo-suggestion" id="logo-suggestion-workflow-grid">
+            <div class="logo-preview" id="logo-preview-workflow-grid">
+              <i data-lucide="workflow" aria-hidden="true"></i>
+            </div>
+            <div class="logo-copy" id="logo-copy-workflow-grid">
+              <h3>Workflow Grid</h3>
+              <p>Structured system mark for repeatable automation and clean handoffs.</p>
+            </div>
+          </article>
+          <article class="logo-suggestion" id="logo-suggestion-agent-loop">
+            <div class="logo-preview" id="logo-preview-agent-loop">
+              <i data-lucide="bot" aria-hidden="true"></i>
+            </div>
+            <div class="logo-copy" id="logo-copy-agent-loop">
+              <h3>Agent Loop</h3>
+              <p>Continuous assistance concept for background AI execution.</p>
+            </div>
+          </article>
+          <article class="logo-suggestion" id="logo-suggestion-control-core">
+            <div class="logo-preview" id="logo-preview-control-core">
+              <i data-lucide="shield-check" aria-hidden="true"></i>
+            </div>
+            <div class="logo-copy" id="logo-copy-control-core">
+              <h3>Control Core</h3>
+              <p>Enterprise-ready symbol for secure app connection and command flow.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="card span-4" id="color-system" aria-labelledby="color-title">
+        <div class="section-label" id="color-system-label">
+          <span>02 Color System</span>
+          <span>02</span>
+        </div>
+        <h2 id="color-title">Neutral Palette</h2>
+        <p>Default monochrome tokens keep the template reusable. Swap these values from brand JSON when rendering a specific identity.</p>
+        <div class="swatch-grid" id="palette-swatches">
+          <div class="swatch" id="swatch-ink">
+            <div class="swatch-fill" style="background:#171a1f"></div>
+            <div class="swatch-meta"><strong>Ink</strong><code>#171A1F</code></div>
+          </div>
+          <div class="swatch" id="swatch-surface">
+            <div class="swatch-fill" style="background:#ffffff"></div>
+            <div class="swatch-meta"><strong>Surface</strong><code>#FFFFFF</code></div>
+          </div>
+          <div class="swatch" id="swatch-soft">
+            <div class="swatch-fill" style="background:#f2f4f7"></div>
+            <div class="swatch-meta"><strong>Soft</strong><code>#F2F4F7</code></div>
+          </div>
+          <div class="swatch" id="swatch-muted">
+            <div class="swatch-fill" style="background:#5e6673"></div>
+            <div class="swatch-meta"><strong>Muted</strong><code>#5E6673</code></div>
+          </div>
+          <div class="swatch" id="swatch-accent">
+            <div class="swatch-fill" style="background:#2e6eea"></div>
+            <div class="swatch-meta"><strong>Accent</strong><code>#2E6EEA</code></div>
+          </div>
+          <div class="swatch" id="swatch-tint">
+            <div class="swatch-fill" style="background:#e8efff"></div>
+            <div class="swatch-meta"><strong>Tint</strong><code>#E8EFFF</code></div>
+          </div>
+        </div>
+        <div class="study-grid" id="color-studies" aria-label="Color studies and variant usage">
+          <article class="study-card" id="color-study-primary-gradient">
+            <div class="study-visual" style="background:linear-gradient(135deg,#171a1f,#2e6eea 52%,#e8efff)"></div>
+            <h3>Primary Gradient</h3>
+            <p>Use for launch posters, hero panels, and AI-system emphasis.</p>
+          </article>
+          <article class="study-card" id="color-study-surface-gradient">
+            <div class="study-visual" style="background:linear-gradient(135deg,#ffffff,#f2f4f7 48%,#dfe6f3)"></div>
+            <h3>Surface Gradient</h3>
+            <p>Use for cards, dashboards, and calm SaaS interface depth.</p>
+          </article>
+          <article class="study-card" id="color-study-semantic-states">
+            <div class="state-strip" id="semantic-state-strip" aria-label="Semantic state colors">
+              <div class="state-swatch" style="background:var(--success)">OK</div>
+              <div class="state-swatch" style="background:var(--warning); color:#171a1f">WARN</div>
+              <div class="state-swatch" style="background:var(--danger)">ERR</div>
+              <div class="state-swatch" style="background:var(--accent)">INFO</div>
+            </div>
+            <h3>Semantic States</h3>
+            <p>Use for success, warning, error, and informational UI feedback.</p>
+          </article>
+          <article class="study-card" id="color-study-alternative-modes">
+            <div class="mode-strip" id="alternative-mode-strip" aria-label="Alternative color modes">
+              <div class="mode-swatch" style="background:var(--accent-soft)">MUTED</div>
+              <div class="mode-swatch" style="background:var(--text); color:var(--bg)">INVERSE</div>
+              <div class="mode-swatch" style="background:#10131a; color:#f2f4f8">DARK</div>
+            </div>
+            <h3>Alternative Modes</h3>
+            <p>Use for muted accent, negative color, and dark-surface variants.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card span-5" id="typography-system" aria-labelledby="type-title">
+        <div class="section-label" id="typography-system-label">
+          <span>03 Typography</span>
+          <span>03</span>
+        </div>
+        <h2 id="type-title">Type Voice</h2>
+        <div class="type-stack" id="type-stack">
+          <article class="type-sample" id="type-sample-display">
+            <div class="type-preview" id="type-preview-display">
+              <div class="hierarchy-stack">
+                <p class="type-h1">H1 Connect Matrix</p>
+                <p class="type-h2">H2 Agentic SaaS Infrastructure</p>
+                <p class="type-h3">H3 App orchestration at enterprise speed</p>
+              </div>
+              <div class="char-grid" aria-label="Sora character specimen">
+                <div class="char-box" style="font-family:var(--font-display)">ABCD</div>
+                <div class="char-box" style="font-family:var(--font-display)">abcd</div>
+                <div class="char-box" style="font-family:var(--font-display)">1234</div>
+                <div class="char-box" style="font-family:var(--font-display)">!@#$</div>
+              </div>
+            </div>
+            <div class="type-copy" id="type-copy-display">
+              <h3>Sora Display</h3>
+              <p>Use for brand names, H1-H3 headings, campaign claims, and high-confidence SaaS positioning moments.</p>
+            </div>
+          </article>
+          <article class="type-sample" id="type-sample-body">
+            <div class="type-preview" id="type-preview-body">
+              <div class="body-specimen">
+                <p class="lede">Agentic work orchestration that keeps every app, teammate, and business process in motion.</p>
+                <p class="body-long">Onest carries the longer product story: explaining connected workflows, AI assistance, approvals, setup states, and operational outcomes without making the interface feel heavy.</p>
+                <p class="helper">Helper copy: Connect a workspace to preview suggested automations.</p>
+              </div>
+              <div class="char-grid" aria-label="Onest character specimen">
+                <div class="char-box" style="font-family:var(--font-body)">ABCD</div>
+                <div class="char-box" style="font-family:var(--font-body)">abcd</div>
+                <div class="char-box" style="font-family:var(--font-body)">1234</div>
+                <div class="char-box" style="font-family:var(--font-body)">!@#$</div>
+              </div>
+            </div>
+            <div class="type-copy" id="type-copy-body">
+              <h3>Onest Body</h3>
+              <p>Use for paragraphs, descriptions, feature copy, helper text, and any wording-heavy product surface.</p>
+            </div>
+          </article>
+          <article class="type-sample" id="type-sample-accent">
+            <div class="type-preview" id="type-preview-accent">
+              <div class="accent-specimen">
+                <div class="meta-line"><span>AGENT.RUNTIME</span><strong>ACTIVE</strong></div>
+                <div class="meta-line"><span>APP.GRAPH</span><strong>24 NODES</strong></div>
+                <div class="meta-line"><span>WORKFLOW.STATUS</span><strong>SYNCED</strong></div>
+                <div class="meta-line"><span>VERSION</span><strong>v1.0.0</strong></div>
+              </div>
+              <div class="char-grid" aria-label="JetBrains Mono character specimen">
+                <div class="char-box" style="font-family:var(--font-accent)">ABCD</div>
+                <div class="char-box" style="font-family:var(--font-accent)">abcd</div>
+                <div class="char-box" style="font-family:var(--font-accent)">1234</div>
+                <div class="char-box" style="font-family:var(--font-accent)">!@#$</div>
+              </div>
+            </div>
+            <div class="type-copy" id="type-copy-accent">
+              <h3>JetBrains Mono Accent</h3>
+              <p>Use sparingly for technical labels, connector states, version stamps, diagnostics, and automation metadata.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="card span-7" id="visual-language" aria-labelledby="visual-title">
+        <div class="section-label" id="visual-language-label">
+          <span>04 Visual Language</span>
+          <span>04</span>
+        </div>
+        <h2 id="visual-title">Image System</h2>
+        <p>Placeholder slots for photography, product renders, textures, motion frames, or generated image outputs.</p>
+        <div class="visual-grid" id="image-system-grid">
+          <div class="image-slot large" id="image-slot-hero">
+            <strong>Hero image slot</strong>
+            <span>Primary brand visual placeholder</span>
+          </div>
+          <div class="image-slot" id="image-slot-mood">
+            <strong>Mood tile</strong>
+            <span>Texture or environment</span>
+          </div>
+          <div class="image-slot" id="image-slot-detail">
+            <strong>Detail tile</strong>
+            <span>Product or material</span>
+          </div>
+          <div class="image-slot" id="image-slot-lighting">
+            <strong>Lighting tile</strong>
+            <span>Atmosphere reference</span>
+          </div>
+          <div class="image-slot" id="image-slot-pattern">
+            <strong>Pattern tile</strong>
+            <span>Graphic language</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card span-8 brand-applications" id="application-mockups" aria-labelledby="applications-title">
+        <div class="section-label" id="application-mockups-label">
+          <span>05 Brand Applications</span>
+          <span>05</span>
+        </div>
+        <h2 id="applications-title">Application Mockups</h2>
+        <div class="mockup-grid" id="mockup-grid">
+          <article class="mockup" id="mockup-packaging">
+            <div class="mock-visual">Packaging</div>
+            <div class="mockup-copy" id="mockup-copy-packaging">
+              <h3>Physical Touchpoint</h3>
+              <p>Box, label, pouch, mailer, signage, or printed collateral.</p>
+            </div>
+          </article>
+          <article class="mockup" id="mockup-website-hero">
+            <div class="mock-visual">Desktop</div>
+            <div class="mockup-copy" id="mockup-copy-website-hero">
+              <h3>Website Hero</h3>
+              <p>Responsive landing composition with brand headline and image slot.</p>
+            </div>
+          </article>
+          <article class="mockup" id="mockup-mobile-screen">
+            <div class="mock-visual">Mobile</div>
+            <div class="mockup-copy" id="mockup-copy-mobile-screen">
+              <h3>Mobile Screen</h3>
+              <p>App, checkout, booking, ordering, or account interface.</p>
+            </div>
+          </article>
+          <article class="mockup" id="mockup-social-campaign">
+            <div class="mock-visual">Social</div>
+            <div class="mockup-copy" id="mockup-copy-social-campaign">
+              <h3>Social Campaign</h3>
+              <p>Square and vertical post system for offers or announcements.</p>
+            </div>
+          </article>
+          <article class="mockup" id="mockup-business-card">
+            <div class="mock-visual">Card</div>
+            <div class="mockup-copy" id="mockup-copy-business-card">
+              <h3>Business Card</h3>
+              <p>Compact identity lockup with hierarchy and contact details.</p>
+            </div>
+          </article>
+          <article class="mockup" id="mockup-large-format">
+            <div class="mock-visual">OOH</div>
+            <div class="mockup-copy" id="mockup-copy-large-format">
+              <h3>Large Format</h3>
+              <p>Billboard, event backdrop, window graphic, or poster use case.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="card span-4 design-system-card" id="ui-components" aria-labelledby="system-title">
+        <div class="section-label" id="ui-components-label">
+          <span>06 Design System</span>
+          <span>06</span>
+        </div>
+        <h2 id="system-title">UI Components</h2>
+        <div class="component-stack" id="component-stack">
+          <div class="nav-demo" id="component-nav-demo">
+            <span class="nav-brand"><i data-lucide="network" aria-hidden="true"></i> Matrix</span>
+            <span>Product</span>
+            <span>Pricing</span>
+            <span>Account</span>
+          </div>
+          <div class="ui-showcase" id="ui-showcase">
+            <article class="ui-sample wide mini-hero" id="ui-sample-mini-hero">
+              <div class="mini-hero-top">
+                <span class="mini-hero-icon"><i data-lucide="bot" aria-hidden="true"></i></span>
+                <div>
+                  <h3>Connect every app. Delegate the rest.</h3>
+                  <p>Agentic workflows that read context, move data, and complete repetitive business tasks.</p>
+                </div>
+              </div>
+              <div class="button-row">
+                <button class="btn primary" type="button">Start workflow</button>
+                <button class="btn" type="button">View demo</button>
+              </div>
+              <div class="mini-preview" aria-label="Hero app preview placeholder">
+                <div class="preview-bar"></div>
+                <div class="preview-line"></div>
+                <div class="preview-line"></div>
+                <div class="preview-line"></div>
+              </div>
+            </article>
+
+            <article class="ui-sample" id="ui-sample-feature-card">
+              <span class="feature-icon"><i data-lucide="plug" aria-hidden="true"></i></span>
+              <h3>App Connectors</h3>
+              <p>Present integrations, connected tools, and setup-ready sources in one reusable feature card.</p>
+            </article>
+
+            <article class="ui-sample workflow-card" id="ui-sample-workflow-card">
+              <h3>Workflow Action</h3>
+              <div class="workflow-row">
+                <span class="workflow-node"><i data-lucide="blocks" aria-hidden="true"></i></span>
+                <span class="workflow-arrow">-&gt;</span>
+                <span class="workflow-node"><i data-lucide="bot" aria-hidden="true"></i></span>
+                <span class="workflow-arrow">-&gt;</span>
+                <span class="workflow-node"><i data-lucide="check" aria-hidden="true"></i></span>
+              </div>
+              <p>Use for connector to agent to completed-task flows.</p>
+            </article>
+
+            <article class="ui-sample" id="ui-sample-mobile-agent">
+              <div class="phone-shell" id="mobile-agent-phone">
+                <div class="phone-screen" id="mobile-agent-screen">
+                  <div class="phone-pill"></div>
+                  <div class="status-row"><span>Inbox triage</span><strong>Live</strong></div>
+                  <div class="status-row"><span>CRM update</span><strong>Done</strong></div>
+                  <div class="status-row"><span>Invoice sync</span><strong>Queued</strong></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="ui-sample" id="ui-sample-toast-input">
+              <div class="toast-sample" id="automation-toast">
+                <div class="toast-row">
+                  <span class="toast-icon"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+                  <div>
+                    <h3>Automation verified</h3>
+                    <p>All app permissions passed policy checks.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="input-demo" id="agent-input-demo">
+                <label for="agent-input-field">Input field</label>
+                <input id="agent-input-field" type="text" value="Update workspace">
+              </div>
+            </article>
+
+            <article class="ui-sample wide empty-state" id="ui-sample-empty-state">
+              <span class="empty-icon"><i data-lucide="workflow" aria-hidden="true"></i></span>
+              <h3>No workflow selected</h3>
+              <p>Choose an app connector or create a new agentic workflow to populate this state.</p>
+            </article>
+
+            <article class="ui-sample wide form-sample" id="ui-sample-command-input">
+              <h3>Command Input</h3>
+              <div class="mini-form" id="command-input-form" aria-label="Command input sample">
+                <input class="mini-input" id="command-input-field" type="text" value="Summarize today">
+                <button class="mini-submit" type="button">Submit</button>
+              </div>
+              <div class="gradient-actions" id="command-gradient-actions">
+                <button class="gradient-action" type="button">Run automation</button>
+                <button class="gradient-action alt" type="button">Preview output</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="card compact span-4" id="iconography" aria-labelledby="icons-title">
+        <div class="section-label" id="iconography-label">
+          <span>07 Iconography</span>
+          <span>07</span>
+        </div>
+        <h2 id="icons-title">Icon Set</h2>
+        <div class="icon-grid" id="icon-grid" aria-label="Lucide icon placeholders for Connect Matrix">
+          <div class="icon"><i data-lucide="network" aria-label="Network"></i></div>
+          <div class="icon"><i data-lucide="workflow" aria-label="Workflow"></i></div>
+          <div class="icon"><i data-lucide="bot" aria-label="Bot"></i></div>
+          <div class="icon"><i data-lucide="plug" aria-label="Plug"></i></div>
+          <div class="icon"><i data-lucide="blocks" aria-label="Blocks"></i></div>
+          <div class="icon"><i data-lucide="zap" aria-label="Zap"></i></div>
+          <div class="icon"><i data-lucide="shield-check" aria-label="Shield check"></i></div>
+          <div class="icon"><i data-lucide="chart-no-axes-combined" aria-label="Chart"></i></div>
+        </div>
+      </section>
+
+      <section class="card compact span-4" id="layout-tokens" aria-labelledby="spacing-title">
+        <div class="section-label" id="layout-tokens-label">
+          <span>08 Spacing</span>
+          <span>08</span>
+        </div>
+        <h2 id="spacing-title">Layout Tokens</h2>
+        <div class="token-grid" id="token-grid">
+          <div class="token">6</div>
+          <div class="token">10</div>
+          <div class="token">16</div>
+          <div class="token">24</div>
+          <div class="token">34</div>
+          <div class="token">48</div>
+          <div class="token">12 col</div>
+          <div class="token">Bento</div>
+        </div>
+      </section>
+
+      <section class="card span-12 system-notes" id="schema-mapping" aria-labelledby="notes-title">
+        <div class="section-label" id="schema-mapping-label">
+          <span>09 Template Notes</span>
+          <span>09</span>
+        </div>
+        <h2 id="notes-title">Schema Mapping</h2>
+        <div class="notes-grid" id="schema-notes-grid">
+          <article class="note" id="schema-note-brand">
+            <div class="note-title" id="schema-note-title-brand">
+              <i data-lucide="badge" aria-hidden="true"></i>
+              <h3><code>brand</code></h3>
+            </div>
+            <p>Name, tagline, promise, descriptors, audience, archetype, and core positioning populate the hero and identity copy.</p>
+          </article>
+          <article class="note" id="schema-note-visual">
+            <div class="note-title" id="schema-note-title-visual">
+              <i data-lucide="palette" aria-hidden="true"></i>
+              <h3><code>visual</code></h3>
+            </div>
+            <p>Palette, typography, logo options, image prompts, icon names, and visual-language rules populate the system cards.</p>
+          </article>
+          <article class="note" id="schema-note-applications">
+            <div class="note-title" id="schema-note-title-applications">
+              <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+              <h3><code>applications</code></h3>
+            </div>
+            <p>Mockups, UI components, campaign assets, app screens, social posts, and presentation slots populate the usage sections.</p>
+          </article>
+          <article class="note" id="schema-note-metadata">
+            <div class="note-title" id="schema-note-title-metadata">
+              <i data-lucide="file-code" aria-hidden="true"></i>
+              <h3><code>metadata</code></h3>
+            </div>
+            <p>Contact info, website, copyright, version, generated date, and ownership notes populate the footer and audit labels.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="card span-12 brand-footer" id="brand-footer" aria-label="Connect Matrix footer">
+        <div class="footer-brand" id="footer-brand">
+          <span class="footer-logo" id="footer-logo"><i data-lucide="network" aria-hidden="true"></i></span>
+          <div>
+            <h3>Connect Matrix</h3>
+            <p>Agentic SaaS systems for faster business operations.</p>
+          </div>
+        </div>
+        <div class="footer-contact" id="footer-contact">
+          <span>hello@connectmatrix.ai</span>
+          <span>connectmatrix.ai</span>
+          <span>Manila / Remote</span>
+        </div>
+        <p class="copyright">&copy; 2026 Connect Matrix. All rights reserved.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/lucide@1.14.0/dist/umd/lucide.min.js"></script>
+  <script>
+    const root = document.documentElement;
+    const button = document.querySelector("[data-theme-toggle]");
+    const label = document.querySelector("[data-theme-label]");
+    const savedTheme = localStorage.getItem("brand-template-theme");
+
+    if (savedTheme) {
+      root.dataset.theme = savedTheme;
+      label.textContent = savedTheme === "dark" ? "Light mode" : "Dark mode";
+    }
+
+    button.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      localStorage.setItem("brand-template-theme", nextTheme);
+      label.textContent = nextTheme === "dark" ? "Light mode" : "Dark mode";
+    });
+
+    if (window.lucide) {
+      window.lucide.createIcons({
+        attrs: {
+          "stroke-width": 1.9
+        }
+      });
+    }
+  </script>
+</body>
+</html>
